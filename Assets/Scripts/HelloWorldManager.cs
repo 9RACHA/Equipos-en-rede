@@ -1,6 +1,7 @@
-
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace HelloWorld
 {
@@ -90,6 +91,7 @@ namespace HelloWorld
             }
         }
 
+        //Metodo no utilizado
         static void SubmitNewColor() {
             if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Color" : "Peticion Cambio Color"))
             {
