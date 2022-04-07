@@ -26,47 +26,15 @@ namespace HelloWorld
             //On Evento
             PosicionJugador.OnValueChanged += OnPositionChange;    //Solo si cambia la posicion de position actualiza el valor
             render = GetComponent<Renderer>();
-            colorJugador.OnValueChanged += OnColorChange;
-            
+            colorJugador.OnValueChanged += OnColorChange; 
 
-            if (IsServer && IsOwner) {  //Hace que no se repita al inciar el start
-
-            coloresDisponibles.Add(Color.blue); //Equipo 1
-            coloresDisponibles.Add(Color.white); //Sin equipo
-            coloresDisponibles.Add(Color.red); //Equipo 2
-            
-            //El color blanco no se corresponde con su indice
-            
-
-            Debug.Log(coloresDisponibles.Count); //3 Colores disponibles
-            }
-
-            if (IsOwner)
-            {
-                SubmitColorRequestServerRpc(true);
-            }
-            Debug.Log("Start");
         }
 
-            public void Colorea(){
+        public void Colorea(){
             render.material.SetColor("_Color", coloresDisponibles[Random.Range(0,coloresDisponibles.Count)]);
         }
 
-         public void ColoreaAzul(){
-            //render.material.SetColor("Azul", Color.blue);
-            colorJugador.Value = coloresDisponibles[0];
-        }
-
-        public void ColoreaRojo(){ 
-            //render.material.SetColor("Rojo", Color.red);
-            colorJugador.Value = coloresDisponibles[1];
-        }
-
-        public void ColoreaBlanco(){
-            //render.material.SetColor("Blanco", Color.white);
-            colorJugador.Value = coloresDisponibles[2];
-            Debug.Log("Color blanco No mostrado");
-        }
+         
 
         //Solo actualiza cuando hay un cambio de valor y no cada frame cuando estaba en el Update
         public void OnPositionChange(Vector3 previousValue, Vector3 newValue){
@@ -79,9 +47,21 @@ namespace HelloWorld
 
         public override void OnNetworkSpawn()
         {
+            if (IsServer && IsOwner) {  //Hace que no se repita al inciar el start
+
+                coloresDisponibles.Add(Color.blue); //Equipo 1
+                
+                coloresDisponibles.Add(Color.red); //Equipo 2
+
+                coloresDisponibles.Add(Color.white); //Sin equipo
+            
+            //El color blanco no se corresponde con su indice
+            
+            }
             if (IsOwner)
             {
-                SubmitColorRequestServerRpc();
+                SubmitPositionColoreaBlancoRequestServerRpc();
+                SubmitPositionCentroRequestServerRpc();
             }
         }
 
@@ -101,44 +81,45 @@ namespace HelloWorld
 
         public void MoverAzul()
         {
-            if (NetworkManager.Singleton.IsServer)
-            {
-                var randomPosition = GetPositionLeft();
-                transform.position = randomPosition;
-                PosicionJugador.Value = randomPosition;
-            }
-            else
-            {
-                SubmitPositionLeftRequestServerRpc();
-            }
+            SubmitPositionLeftRequestServerRpc();
+            SubmitPositionColoreaAzulRequestServerRpc();
         }
 
         public void MoverRojo()
         {
-            if (NetworkManager.Singleton.IsServer)
-            {
-                var randomPosition = GetPositionRight();
-                transform.position = randomPosition;
-                PosicionJugador.Value = randomPosition;
-            }
-            else
-            {
-                SubmitPositionRightRequestServerRpc();
-            }
+            
+            SubmitPositionRightRequestServerRpc();
+            SubmitPositionColoreaRojoRequestServerRpc();
         }
 
         public void MoverCentro()
         {
-            if (NetworkManager.Singleton.IsServer)
-            {
-                var randomPosition = GetCentralPositionOnPlane();
-                transform.position = randomPosition;
-                PosicionJugador.Value = randomPosition;
-            }
-            else
-            {
-                SubmitPositionCentroRequestServerRpc();
-            }
+            
+            SubmitPositionCentroRequestServerRpc();
+            SubmitPositionColoreaBlancoRequestServerRpc();
+        }
+        
+        [ServerRpc]
+
+         void SubmitPositionColoreaAzulRequestServerRpc(ServerRpcParams rpcParams = default){
+            //render.material.SetColor("Azul", Color.blue);
+            colorJugador.Value = coloresDisponibles[0];
+            Debug.Log("Equipo Azul");
+          
+        }
+        [ServerRpc]
+         void SubmitPositionColoreaRojoRequestServerRpc(ServerRpcParams rpcParams = default){ 
+            //render.material.SetColor("Rojo", Color.red);
+            colorJugador.Value = coloresDisponibles[1];
+            Debug.Log("Equipo rojo");
+
+        }
+        [ServerRpc]
+        void SubmitPositionColoreaBlancoRequestServerRpc(ServerRpcParams rpcParams = default){
+            //render.material.SetColor("Blanco", Color.white);
+            colorJugador.Value = coloresDisponibles[2];
+
+            Debug.Log("Sin equipo");
         }
 
         [ServerRpc] //SIEMPRE TIPO VOID por tanto no devuelve nada
@@ -163,23 +144,7 @@ namespace HelloWorld
         [ServerRpc] //SIEMPRE TIPO VOID por tanto no devuelve nada
         void SubmitPositionRightRequestServerRpc(ServerRpcParams rpcParams = default)
         {
-            PosicionJugador.Value = GetCentralPositionOnPlane(); //La posicion de aquien llamo el server rpc
-        }
-        
-
-         [ServerRpc] //SIEMPRE TIPO VOID
-        void SubmitColorRequestServerRpc(bool primeravez = false, ServerRpcParams rpcParams = default)
-        {
-            //CREA DOS VARIABLES el color asignado 
-            Color oldColor = colorJugador.Value;    // color antiguo del jugador
-            Color newColor = coloresDisponibles[Random.Range(0,coloresDisponibles.Count)];  // asignan un nuevo color generando un aleatorio
-            coloresDisponibles.Remove(newColor);  //Borra el nuevo color
-            if (!primeravez)    //Si no es el primer color
-            {
-                coloresDisponibles.Add(oldColor); //Añade el color antiguo para evitar quedarse sin colores
-            }
-            colorJugador.Value = newColor;
-            Debug.Log(coloresDisponibles);
+            PosicionJugador.Value = GetPositionRight(); //La posicion de aquien llamo el server rpc
         }
 
         //CAMBIAR LA POSICION AL CAMBIAR DE EQUIPO

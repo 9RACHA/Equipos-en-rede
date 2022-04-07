@@ -61,9 +61,9 @@ namespace HelloWorld
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
                 player.MoverAzul();
-                Debug.Log("Me muevo a la izquierda");
+                /*Debug.Log("Me muevo a la izquierda");
                 player.ColoreaAzul();
-                Debug.Log("Color Azul");
+                Debug.Log("Color Azul");*/
             }
         }
         
@@ -73,9 +73,9 @@ namespace HelloWorld
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
                 player.MoverRojo();
-                Debug.Log("Me muevo a la derecha");
+               /* Debug.Log("Me muevo a la derecha");
                 player.ColoreaRojo();
-                Debug.Log("Color Rojo");
+                Debug.Log("Color Rojo");*/
             }
         }
 
@@ -85,9 +85,9 @@ namespace HelloWorld
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
                 player.MoverCentro();
-                Debug.Log("Me muevo al centro");
+               /* Debug.Log("Me muevo al centro");
                 player.ColoreaBlanco();
-                Debug.Log("Color Blanco");
+                Debug.Log("Color Blanco");*/
             }
         }
 
