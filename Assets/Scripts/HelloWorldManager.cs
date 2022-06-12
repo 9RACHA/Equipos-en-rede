@@ -17,11 +17,11 @@ namespace HelloWorld
             {
                 StatusLabels();
 
-                CambiarEquipoAzul();
-
-                CambiarEquipoRojo();
                 //SubmitNewColor();
-                CambiarSinEquipo();
+                //Enviar a un destino determinado
+                SubmitNuevoEquipoAzul1();
+                SubmitNuevoEquipoRojo2();
+                SubmitNuevoSinEquipo();
             }
 
             GUILayout.EndArea();
@@ -54,42 +54,50 @@ namespace HelloWorld
             }
         }
         */
-        static void CambiarEquipoAzul() {
-            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Equipo Azul" : "Peticion Cambio Posicion "))
+
+        static void SubmitNuevoEquipoAzul1() {
+            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Equipo Azul" : "Peticion Equipo Azul"))
             {
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
-                player.MoverAzul();
+                player.MoverEquipoAzul1();
                 Debug.Log("Me muevo a la izquierda");
+                /*
                 player.ColoreaAzul();
-                Debug.Log("Color Azul");
+                Debug.Log("Color Azul"); */
             }
         }
         
-        static void CambiarEquipoRojo() {
-            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Equipo Rojo" : "Peticion Cambio Posicion "))
+        //Boton para equipo Rojo
+        static void SubmitNuevoEquipoRojo2() {
+            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Equipo Rojo" : "Peticion Equipo Rojo"))
             {
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
-                player.MoverRojo();
+                player.MoverEquipoRojo2();
                 Debug.Log("Me muevo a la derecha");
+                /*
                 player.ColoreaRojo();
-                Debug.Log("Color Rojo");
+                Debug.Log("Color Rojo"); */
             }
         }
 
-        static void CambiarSinEquipo() {
-            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Sin Equipo" : "Peticion Cambio Posicion "))
+        static void SubmitNuevoSinEquipo() {
+            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Sin Equipo" : "Peticion Sin equipo"))
             {
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
-                player.MoverCentro();
+                player.MoverSinEquipo(); 
                 Debug.Log("Me muevo al centro");
+                /*
                 player.ColoreaBlanco();
-                Debug.Log("Color Blanco");
+                Debug.Log("Color Blanco");*/
             }
         }
+    }
+}
 
+        /*
         static void SubmitNewColor() {
             if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Color" : "Peticion Cambio Color"))
             {
@@ -99,8 +107,8 @@ namespace HelloWorld
                 Debug.Log("Color cambiado");
             }
         }
-    }
-}
+        */
+    
 
 
     
