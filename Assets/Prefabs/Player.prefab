@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 553294278805254683}
   - component: {fileID: 553294278805254680}
   - component: {fileID: 553294278805254676}
-  - component: {fileID: -7347450075141292014}
+  - component: {fileID: -4009814290370738372}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -114,7 +114,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &-7347450075141292014
+--- !u!114 &-4009814290370738372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,8 +123,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 553294278805254681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9316a39fab95b9d44b13561d8a9bad85, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ce4c3716427d9b42b146fc0cb3d8083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position:
+  Posicion:
     m_InternalValue: {x: 0, y: 0, z: 0}
+  ColorJugador:
+    m_InternalValue: {r: 0, g: 0, b: 0, a: 0}
+  NumeroEquipo:
+    m_InternalValue: 0

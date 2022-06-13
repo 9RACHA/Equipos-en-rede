@@ -91,16 +91,16 @@ namespace HelloWorld
              //CAMBIAR LA POSICION AL CAMBIAR DE EQUIPO
         static Vector3 GetPosicionAleatoriaSinEquipo()
         {
-            return new Vector3(Random.Range(-1.8f, 1.8f), 1f, Random.Range(-3f, 3f));
+            return new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-3f, 3f));
 
         }
 
         static Vector3 GetPosicionAleatoriaEquipoAzul1(){
-            return new Vector3(Random.Range(-5f, -1.8f), 1f, Random.Range(-3f, 3f));
+            return new Vector3(Random.Range(-5f, -2f), 1f, Random.Range(-3f, 3f));
         }
 
         static Vector3 GetPosicionAleatoriaEquipoRojo2(){
-            return new Vector3(Random.Range(1.8f, 5f), 1f, Random.Range(-3f, 3f));
+            return new Vector3(Random.Range(2f, 5f), 1f, Random.Range(-3f, 3f));
         }
 
         [ServerRpc] //SIEMPRE TIPO VOID por tanto no devuelve nada
