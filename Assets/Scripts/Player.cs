@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace HelloWorld
 {
-    public class Player : NetworkBehaviour
+    public class Player : NetworkBehaviour //Esta clase heredará de NetworkBehaviouren lugar de MonoBehaviour
     {
-        //Varible para la posicion
+        //Definimos a NetworkVariable para representar la posición en la red de este jugador.
         public NetworkVariable<Vector3> Posicion = new NetworkVariable<Vector3>();
         //Variable para el color
         public NetworkVariable<Color> ColorJugador = new NetworkVariable<Color>();
@@ -40,6 +40,9 @@ namespace HelloWorld
             render.material.color = newValue;   //El componente rederer se asociara con un material y un color lo que asignara un nuevo valor color
         }
 
+        //Cualquier MonoBehaviour implementación NetworkBehaviour puede anular el método Netcode OnNetworkSpawn()
+        //Este método se activa cuando NetworkObjectse genera y se configura la red.
+        //Anulamos OnNetworkSpawn ya que un cliente y un servidor ejecutarán una lógica diferente aquí.
         public override void OnNetworkSpawn()   //Nace 
         {
             if(IsServer && IsOwner){ //Si es Servidor Y es Propietario

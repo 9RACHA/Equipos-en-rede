@@ -5,6 +5,10 @@ namespace HelloWorld
 {
     public class Manager : MonoBehaviour
     {
+        //NetworkManager implementa el patrón singleton ya que declara su singleton llamado Singleton.
+        //Esto se define cuando MonoBehaviour está habilitado. 
+        //Este componente también contiene propiedades muy útiles, como IsClient, IsServery IsLocalClient. 
+        //Los dos primeros dictan el estado de conexión que hemos establecido actualmente que utilizará en breve.
         void OnGUI()
         {
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));
@@ -24,6 +28,7 @@ namespace HelloWorld
             GUILayout.EndArea();
         }
 
+        //Metodo que imita los botones del editor dentro de NetWorkManager durante el modo de reproduccion.
         static void StartButtons()
         {
             if (GUILayout.Button("Host")) NetworkManager.Singleton.StartHost();
@@ -31,6 +36,7 @@ namespace HelloWorld
             if (GUILayout.Button("Server")) NetworkManager.Singleton.StartServer();
         }
 
+        //Metodo que imita los botones del editor dentro de NetWorkManager durante el modo de reproduccion.
         static void StatusLabels()
         {
             var mode = NetworkManager.Singleton.IsHost ?

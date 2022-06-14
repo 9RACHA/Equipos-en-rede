@@ -61,7 +61,66 @@ namespace HelloWorld
         {
             if (IsOwner)
             {
-               // Move();
+               // Move(); 
+
+               //Cualquier MonoBehaviourimplementación NetworkBehaviourpuede anular el método Netcode OnNetworkSpawn()
+               //Este método se activa cuando NetworkObjectse genera y se configura la red. 
+               //Anulamos OnNetworkSpawn ya que un cliente y un servidor ejecutarán una lógica diferente aquí.
+
+               //En las instancias de cliente y servidor de este reproductor, llamamos al Move()
+
+            /*public void Move() {
+            if (NetworkManager.Singleton.IsServer)
+            {
+                var randomPosition = GetRandomPositionOnPlane();
+                transform.position = randomPosition;
+                Position.Value = randomPosition;
+            }
+            else
+            {
+                SubmitPositionRequestServerRpc();
+            }
+        }*/
+        //Si este jugador es un jugador propiedad del servidor, OnNetworkSpawn()podemos moverlo inmediatamente, como se sugiere en el siguiente código
+        
+                 /*   if (NetworkManager.Singleton.IsServer) {
+                var randomPosition = GetRandomPositionOnPlane();
+                transform.position = randomPosition;
+                Position.Value = randomPosition;
+            }*/
+
+            //Si somos un cliente, llamamos a ServerRpc. A ServerRpcpuede ser invocado por un cliente para ser ejecutado en el servidor.
+               /*         else
+            {
+                SubmitPositionRequestServerRpc();
+            }
+            */
+
+            //Esto ServerRpc simplemente establece la posición NetworkVariable en la instancia del servidor de este jugador simplemente eligiendo un punto aleatorio en el plano.
+                    /*[ServerRpc]
+        void SubmitPositionRequestServerRpc(ServerRpcParams rpcParams = default)
+        {
+            Position.Value = GetRandomPositionOnPlane();
+        }*/
+
+        //La instancia del servidor de este jugador acaba de modificar la Posición NetworkVariable, lo que significa que si somos un cliente, debemos aplicar esta posición localmente dentro de nuestro ciclo de Actualización.
+               /* void Update()
+        {
+            transform.position = Position.Value;
+        }*/
+        //Ahora podemos volver HelloWorldManager.csy definir el contenido de SubmitNewPosition()
+
+               // static void SubmitNewPosition()
+       /* {
+            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Move" : "Request Position Change"))
+            {
+                var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
+                var player = playerObject.GetComponent<HelloWorldPlayer>();
+                player.Move();
+            }
+        }*/
+        //Cada vez que presiona el botón GUI (que es contextual dependiendo de si es un servidor o un cliente), encuentra su reproductor local y simplemente llama Move().
+
             }
         }
 
