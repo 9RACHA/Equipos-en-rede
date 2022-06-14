@@ -14,16 +14,6 @@ namespace HelloWorld
         //network variable de color
         public NetworkVariable<Color> colorCambia = new NetworkVariable<Color>();
 
-        /*
-        public static List<Color> coloresDisponibles = new List<Color>(); //colores disponibles
-
-        public static List<Color> equipoAzul = new List<Color>();
-
-        public static List<Color> equipoRojo = new List<Color>();
-
-        public static List<Color> sinEquipo = new List<Color>();
-        */
-        
         //Lista de jugadores
         public List<GameObject> jugadores = new List<GameObject>();
 
@@ -174,7 +164,7 @@ namespace HelloWorld
         {
             PosicionIzquierdaAzul.Value = GetPosicionAleatoriaEquipoAzul1(); //La posicion de aquien llamo el server rpc
 
-            gameObject.GetComponent<Renderer>().material.color = Color.blue;
+            gameObject.GetComponent<Renderer>().material.color = Color.blue; //El componente que se obtendra sera azul
 
             //Si la lista de jugadores contiene mas de 2 no se podra añadir otro
             if (jugadores.Count > 2)

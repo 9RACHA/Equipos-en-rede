@@ -5,6 +5,8 @@ namespace HelloWorld
 {
     public class Manager : MonoBehaviour
     {
+        //com.unity.netcode.gameobjects -> version obsoleta?    com.unity.multiplayer.tools 
+
         //NetworkManager implementa el patrón singleton ya que declara su singleton llamado Singleton.
         //Esto se define cuando MonoBehaviour está habilitado. 
         //Este componente también contiene propiedades muy útiles, como IsClient, IsServery IsLocalClient. 
@@ -48,7 +50,7 @@ namespace HelloWorld
         }
 
         
-        static void SubmitEquipoAzul1()
+        static void SubmitEquipoAzul1() //Enviar la posicion del equipo azul
         {
             if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Equipo Azul" : "Equipo Azul"))
             {
